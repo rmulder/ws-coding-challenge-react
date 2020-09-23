@@ -10,6 +10,26 @@ function Products() {
     fetchProducts().then((response) => {
       console.log(`=================> products: `, response);
       console.log(`=================> products.groups: `, response.groups);
+
+      let products = [];
+      response.groups.forEach((product) => {
+        // product.name = $sce.trustAsHtml(product.name);
+        product.isToggled = false;
+        product.slides = [];
+        let currIndex = 0;
+
+        product.images.forEach((image) => {
+          product.slides.push({
+            image: image.href,
+            text: '',
+            id: currIndex++
+          });
+        });
+
+        products.push(product);
+      });
+
+      response.groups = products;
       setProducts(response);
       window.localStorage.setItem('products', response)
     })
@@ -65,30 +85,30 @@ function Product({product}) {
 
   return (
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 product">
-        <img src={product.hero.href} alt="{product.hero.alt}" rel="{product.hero.rel}" ng-click="toggleCarousel(product)"
-          width="{product.hero.width}" height="{product.hero.height}" />
+        <img src={product.hero.href} alt={product.hero.alt} rel={product.hero.rel} onClick={toggleCarousel(product)}
+          width={product.hero.width} height={product.hero.height} />
         <h2 className="product-name">{product.name}</h2>
         <div className="product-price">$
-					<span ng-show="{product.priceRange.type === 'sale'}">{ product.priceRange?.selling?.low }</span>
-          <span ng-hide="{product.priceRange.type === 'sale'}">{ product.priceRange?.regular?.low }</span>
+          {product.priceRange?.type === 'sale' && <span>{ product.priceRange?.selling?.low }</span>}
+          {product.priceRange?.type !== 'sale' && <span>{ product.priceRange?.regular?.low }</span>}
         </div>
-        <div id="{product.id}_carousel" className="carousel hidden">
+        <div id={product.id + '_carousel'} className="carousel hidden">
           <button type="button" className="close close-button" onClick={toggleCarousel(product)} aria-label="Close">
             <span aria-hidden="true" className="cross-symbol">&times;</span>
           </button>
-          <div ng-show="product.slides.length > 0">
-            <img src="{product.hero.href}" alt="{product.hero.alt}" rel="{product.hero.rel}" width="{product.hero.width}" height="{product.hero.height}"/>
+          {product.slides?.length > 0 && <div>
+            <img src={product.hero.href} alt={product.hero.alt} rel={product.hero.rel} width={product.hero.width} height={product.hero.height} />
               <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
                 <div uib-slide ng-repeat="slide in product.slides track by slide.id" index="slide.id">
                   <img src="{slide.image}" width="{product.hero.width}" height="{product.hero.height}" alt="{product.hero.alt}"/>
 							  </div>
               </div>
-              <div ng-hide="product.slides.length > 0">
-                <img src="{product.hero.href}" alt="{product.hero.alt}" rel="{product.hero.rel}" width="{product.hero.width}" height="{product.hero.height}"/>
-                  <h3>Product details not available.</h3>
-					    </div>
-            </div>
-          </div>
+          </div>}
+          {product.slides?.length === 0 && <div>
+            <img src={product.hero.href} alt={product.hero.alt} rel={product.hero.rel} width={product.hero.width} height={product.hero.height} />
+            <h3>Product details not available.</h3>
+          </div>}
+        </div>
       </div>
   );
 }
