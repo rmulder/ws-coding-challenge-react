@@ -13,7 +13,7 @@ function Products() {
 
       let products = [];
       response.groups.forEach((product) => {
-        // product.name = $sce.trustAsHtml(product.name);
+        // product.name = dangerouslySetInnerHTML(product.name);
         product.isToggled = false;
         product.slides = [];
         let currIndex = 0;
@@ -70,6 +70,7 @@ function Products() {
   );
 }
 
+function createMarkup(html) { return { __html: html }; };
 function Product({product}) {
   const toggleCarousel = (product) => {
     console.log(`product: `, product);
@@ -87,7 +88,7 @@ function Product({product}) {
       <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 product">
         <img src={product.hero.href} alt={product.hero.alt} rel={product.hero.rel} onClick={toggleCarousel(product)}
           width={product.hero.width} height={product.hero.height} />
-        <h2 className="product-name">{product.name}</h2>
+      <h2 className="product-name" dangerouslySetInnerHTML={createMarkup(product.name)}></h2>
         <div className="product-price">$
           {product.priceRange?.type === 'sale' && <span>{ product.priceRange?.selling?.low }</span>}
           {product.priceRange?.type !== 'sale' && <span>{ product.priceRange?.regular?.low }</span>}
