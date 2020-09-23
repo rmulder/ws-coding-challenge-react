@@ -1,0 +1,46 @@
+.product {
+    position: relative;
+    margin-bottom: 20px;
+    .product-name {
+        position: absolute;
+        top: -15px;
+        padding: 10px;
+        opacity: 0.6;
+        background-color: white;
+        color: black;
+        width: 100%;
+        margin-top: 15px;
+        text-transform: uppercase;
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .product-price {
+        position: absolute;
+        bottom: 30px;
+        left: 26px;
+        background-color: #4D4D4E;
+        color: white;
+        padding: 0 5px;
+    }
+    .carousel {
+        position: absolute;
+        z-index: 990;
+        top: 0;
+        button.close {
+            position: absolute;
+            z-index: 991;
+            top: 0;
+            right: 0;
+            color: black;
+            font-size: 36px;
+            margin-top: -8px;
+            opacity: 0.5;
+        }
+        h3 {
+            position: absolute;
+            top: 16px;
+            color: white;
+            margin-left: 10px;
+        }
+    }
+}
