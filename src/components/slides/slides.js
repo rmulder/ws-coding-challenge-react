@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-class Slides extends Component {
-  render() {
-    // ...
-  }
-}
+import React from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+
 const Slides = (product) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const myInterval = 5000;
@@ -38,4 +35,4 @@ const Slides = (product) => {
   )
 }
 
-export default Slides; 
+export default Slides;
