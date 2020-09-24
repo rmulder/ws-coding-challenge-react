@@ -129,8 +129,11 @@ const Product = ({product}) => {
 
 const App = () => {
   return (
-    <div className="App container">
-      <Products />
+    <div className="App">
+      <h2>Williams-Sonoma Coding Challenge</h2>
+      <div className="container">
+        <Products />
+      </div>
     </div>
   );
 }
