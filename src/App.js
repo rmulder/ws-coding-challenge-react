@@ -28,7 +28,7 @@ const Slides = (product) => {
             alt={product.hero.alt}
             width={product.hero.width}
             height={product.hero.height}
-            style={{margin: 'auto'}}
+            style={{ margin: 'auto' }}
           />
         </Carousel.Item>
       ))}
@@ -67,8 +67,9 @@ const Products = () => {
   }, [])
 
   const fetchProducts = () => {
+    const url = 'http://localhost:3000/index.json';
     return window
-      .fetch('http://localhost:3000/index.json', {
+      .fetch(url, {
         method: 'GET',
         headers: {
           'content-type': 'application/json;charset=UTF-8',
