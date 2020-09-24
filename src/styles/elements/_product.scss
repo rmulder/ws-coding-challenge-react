@@ -1,3 +1,4 @@
+
 .product {
     position: relative;
     margin-bottom: 20px;
@@ -26,6 +27,9 @@
         position: absolute;
         z-index: 990;
         top: 0;
+        &.hidden {
+            display: none;
+        }
         button.close {
             position: absolute;
             z-index: 991;
